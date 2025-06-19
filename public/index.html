@@ -3,104 +3,144 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Galery</title>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <title>Image Gallery</title>
     <link rel="stylesheet" href="./css/tailwind.css">
 </head>
-<body class="bg-slate-500">
+<body class="bg-primary font-WorkSans">
     <!-- Nav Bar -->
-    <header class="flex justify-between bg-red-500">
-        <figure class="p-3">
-            LOGO
+    <header class="flex justify-between bg-primary border-b-[3px] border-b-quaternary">
+        <figure class="flex p-3 align-middle">
+            <a href="./index.html" class="flex align-middle">
+                <img src="./assets/svg/ImageGalley.svg" alt="">
+            </a>
         </figure>
-        <ul class="flex p-3">
-            <li class="mr-3">
+        <ul class="flex p-3 align-middle items-center justify-center text-sm font-medium">
+            <li class="mr-5">
                 <a href="">Inicio</a>
             </li>
-            <li class="mr-3">
+            <li class="mr-5"">
                 <a href="">Imagenes</a>
             </li>
-            <li class="mr-3">
+            <li class="mr-5"">
                 <a href="">Acerca de</a>
             </li>
-            <li class="mr-3">
+            <li class="mr-5 bg-secondary p-2 px-4 rounded-[12px] font-bold text-primary">
                 <a href="">Iniciar Sesión</a>
+            </li>
+            <li class="mr-5 bg-shadow p-2 px-4 rounded-[12px] font-bold text-main">
+                <a href="">Registrarse</a>
             </li>
         </ul>
     </header>
 
     <!-- Main Content -->
     <main>
-        <section class="flex flex-col bg-slate-500 items-center align-middle justify-center">
+        <section class="flex flex-col items-center align-middle justify-center">
             <div class="p-5 m-5 flex flex-col items-center">
                 <h1>Hola, te damos la bienvenida!</h1>
-                <button class="w-max p-3 bg-white rounded-md border border-black">
+                <button class="w-max p-3 bg-secondary rounded-md">
                     <a href="">Da click aqui!</a>
                 </button>
             </div>
         </section>
-        <p class="bg-slate-500 text-center">Echa un vistazo a nuestra colección!</p>
-        <section id="image-container" class="px-0 py-24 max-w-7xl mx-auto justify-evenly bg-slate-500 grid grid-cols-3 gap-5 grid-span-first-2 grid-span-first-4">
+        <p class="text-center">Echa un vistazo a nuestra colección!</p>
+        <h1 class="font-bold text-2xl mx-auto max-w-7xl">Lo más reciente:</h1>
+        <section id="image-container" class="px-0 py-4 max-w-7xl mx-auto justify-evenl grid grid-cols-3 gap-5 auto-rows-[250px]">
             <!-- Image Card -->
-            <!-- <article class="w-max p-10 m-5 bg-slate-600 border border-blue-950 rounded-lg flex flex-col items-center justify-center align-middle">
-                <h5>Titulo Imagen</h5>
-                <p>Descripcion de Imagen</p>
-            </article> -->
-            <figure class="image-box h-[250px] overflow-hidden">
+            <a href="./detalle.html" class="image-box h-full overflow-hidden col-span-2">
                 <img src="./assets/img/reptil_imagen.jpg" alt="" class="w-full h-full object-cover transition-transform duration-300 hover:scale-105">
-            </figure>
+            </a>
 
-            <figure class="image-box h-[250px] overflow-hidden">
+            <figure class="image-box h-full overflow-hidden">
                 <img src="./assets/img/bovino_imagen.jpg" alt="" class="w-full h-full  object-cover transition-transform duration-300 hover:scale-105">
             </figure>
 
-            
-            
-            <figure class="image-box h-[250px] overflow-hidden">
+            <figure class="image-box h-full overflow-hidden">
                 <img src="./assets/img/caballo_imagen.jpg" alt="" class="w-full h-full object-cover transition-transform duration-300 hover:scale-105">
             </figure>
 
-            <figure class="image-box h-[250px] overflow-hidden">
+            <figure class="image-box h-full overflow-hidden">
                 <img src="./assets/img/atardecer_imagen.jpg" alt="" class="w-full h-full object-cover transition-transform duration-300 hover:scale-105">
             </figure>
 
-            <figure class="image-box overflow-hidden row-span-2 h-full">
+            <figure class="image-box h-full overflow-hidden row-span-2">
                 <img src="./assets/img/insecto_imagen.jpg" alt="" class="w-full h-full object-cover transition-transform duration-300 hover:scale-105">
             </figure>
 
-            <figure class="image-box h-[250px] overflow-hidden">
+            <figure class="image-box h-full overflow-hidden col-span-2">
                 <img src="./assets/img/pesca_imagen.jpg" alt="" class="w-full h-full object-cover transition-transform duration-300 hover:scale-105">
             </figure>
 
             <!-- repitis -->
-             <figure class="image-box h-[250px] overflow-hidden">
+             <figure class="image-box h-full overflow-hidden">
                 <img src="./assets/img/reptil_imagen.jpg" alt="" class="w-full h-full object-cover transition-transform duration-300 hover:scale-105">
             </figure>
 
-            <figure class="image-box h-[250px] overflow-hidden">
+            <figure class="image-box h-full overflow-hidden">
                 <img src="./assets/img/bovino_imagen.jpg" alt="" class="w-full h-full  object-cover transition-transform duration-300 hover:scale-105">
             </figure>
-
             
-            
-            <figure class="image-box h-[250px] overflow-hidden">
+            <figure class="image-box h-full overflow-hidden">
                 <img src="./assets/img/caballo_imagen.jpg" alt="" class="w-full h-full object-cover transition-transform duration-300 hover:scale-105">
             </figure>
 
-            <figure class="image-box h-[250px] overflow-hidden">
+            <figure class="image-box h-full overflow-hidden">
                 <img src="./assets/img/atardecer_imagen.jpg" alt="" class="w-full h-full object-cover transition-transform duration-300 hover:scale-105">
             </figure>
 
-            <figure class="image-box h-[250px] overflow-hidden row-span-2">
+            <figure class="image-box h-full overflow-hidden row-span-2">
                 <img src="./assets/img/insecto_imagen.jpg" alt="" class="w-full h-full object-cover transition-transform duration-300 hover:scale-105">
             </figure>
 
-            <figure class="image-box h-[250px] overflow-hidden">
+            <figure class="image-box h-full overflow-hidden">
                 <img src="./assets/img/pesca_imagen.jpg" alt="" class="w-full h-full object-cover transition-transform duration-300 hover:scale-105">
             </figure>
+
+            <!-- repitis -->
+             <figure class="image-box h-full overflow-hidden">
+                <img src="./assets/img/reptil_imagen.jpg" alt="" class="w-full h-full object-cover transition-transform duration-300 hover:scale-105">
+            </figure>
+
+            <figure class="image-box h-full overflow-hidden">
+                <img src="./assets/img/bovino_imagen.jpg" alt="" class="w-full h-full  object-cover transition-transform duration-300 hover:scale-105">
+            </figure>
+            
+            <figure class="image-box h-full overflow-hidden">
+                <img src="./assets/img/caballo_imagen.jpg" alt="" class="w-full h-full object-cover transition-transform duration-300 hover:scale-105">
+            </figure>
+
+            <figure class="image-box h-full overflow-hidden">
+                <img src="./assets/img/atardecer_imagen.jpg" alt="" class="w-full h-full object-cover transition-transform duration-300 hover:scale-105">
+            </figure>
+
+            <figure class="image-box h-full overflow-hidden row-span-2">
+                <img src="./assets/img/insecto_imagen.jpg" alt="" class="w-full h-full object-cover transition-transform duration-300 hover:scale-105">
+            </figure>
+
+            <figure class="image-box h-full overflow-hidden">
+                <img src="./assets/img/pesca_imagen.jpg" alt="" class="w-full h-full object-cover transition-transform duration-300 hover:scale-105">
+            </figure>
+
         </section>
     </main>
 
     <!-- Footer -->
+    <footer class="flex bg-red-500">
+        <section id="links" class="">
+            <h1>Siguenos en redes</h1>
+            <div id="icons">
+                <img src="./assets/svg/facebook.svg" alt="">
+            </div>
+            <p>Image Galery. 2025</p>
+        </section>
+        <section id="links" class="">
+            <h1>Siguenos en redes</h1>
+            <div id="icons">
+                <img src="./assets/svg/facebook.svg" alt="">
+            </div>
+        </section>
+    </footer>
 <script src="./js/index.js"></script>
 </body>
 </html>

@@ -1,12 +1,85 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" class="scroll-smooth scrollbar-hidden">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Galery</title>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <title>Image Gallery</title>
     <link rel="stylesheet" href="./css/tailwind.css">
 </head>
-<body>
-    <h1>Hola super mundo</h1>
+<body class="bg-primary font-WorkSans">
+    <!-- Nav Bar -->
+    <header class="flex justify-between bg-primary border-b-[3px] border-b-quaternary">
+        <figure class="flex p-3 align-middle">
+            <a href="./index.html" class="flex align-middle">
+                <img src="./assets/svg/ImageGalley.svg" alt="">
+            </a>
+        </figure>
+        <ul class="flex p-3 align-middle items-center justify-center text-sm font-medium">
+            <li class="mr-5">
+                <a href="">Inicio</a>
+            </li>
+            <li class="mr-5"">
+                <a href="">Imagenes</a>
+            </li>
+            <li class="mr-5"">
+                <a href="">Acerca de</a>
+            </li>
+            <li class="mr-5 bg-secondary p-2 px-4 rounded-[12px] font-bold text-primary">
+                <a href="">Iniciar Sesión</a>
+            </li>
+            <li class="mr-5 bg-shadow p-2 px-4 rounded-[12px] font-bold text-main">
+                <a href="">Registrarse</a>
+            </li>
+        </ul>
+    </header>
+
+    <!-- Content -->
+    <main class="flex">
+        <!-- Image Related -->
+        <section id="content-container" class="p-4 w-[70dvw]">
+            <figure class="h-auto w-full flex overflow-hidden border border-tertiary rounded-2xl mt-4 mb-4 mx-4">
+                <img src="./assets/img/reptil_imagen.jpg" alt="" class="h-full w-full object-cover" id="selected-image">
+            </figure>
+            <article class="p-4">
+                <h1 class="font-bold pb-4 text-main">Sobre la imágen</h1>
+                <p class="text-main">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatem sint est porro ducimus totam obcaecati voluptate cum aspernatur dolorum! Aut atque repellendus voluptas est commodi, officiis excepturi molestias quo vero?</p>
+                <div class="flex p-4 justify-center">
+                    <button class="bg-secondary p-2 px-4 rounded-lg text-white mr-9">Añadir a Galería</button>
+                    <button class="bg-shadow p-2 px-4 rounded-lg">Donar</button>
+                </div>
+            </article>
+        </section>
+        <!-- Aditional Info -->
+        <section class="flex flex-col p-4 justify-start items-start align-top h-full w-[30dvw]">
+            <article class="m-4">
+                <h1 class="font-bold text-main mt-4">Subida por:</h1>
+                <p class="bg-shadow p-4 rounded-lg mt-4"><span class="rounded-full bg-tertiary p-2 mr-4 select-none">US</span>Usuario</p>
+                <h1 class="font-bold text-main mt-4 mb-0">Imágenes Relacionadas:</h1>
+            </article>
+            <div id="related-images-container" class="m-4 overflow-hidden flex flex-wrap">
+                <img src="./assets/img/bovino_imagen.jpg" alt="" class="h-32 m-1 rounded-md">
+                <img src="./assets/img/bovino_imagen.jpg" alt="" class="h-32 m-1 rounded-md">
+                <img src="./assets/img/bovino_imagen.jpg" alt="" class="h-32 m-1 rounded-md">
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <!-- <footer class="flex bg-tertiary">
+        <section id="links" class="">
+            <h1>Siguenos en redes</h1>
+            <div id="icons">
+                <img src="./assets/svg/facebook.svg" alt="">
+            </div>
+            <p>Image Galery. 2025</p>
+        </section>
+        <section id="links" class="">
+            <h1>Siguenos en redes</h1>
+            <div id="icons">
+                <img src="./assets/svg/facebook.svg" alt="">
+            </div>
+        </section>
+    </footer> -->
 </body>
 </html>
