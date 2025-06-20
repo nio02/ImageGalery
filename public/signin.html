@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth scrollbar-hidden">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <title>Image Galley Sign In</title>
+    <link rel="stylesheet" href="./css/tailwind.css">
+</head>
+<body class="bg-primary font-WorkSans">
+    <!-- Nav Bar -->
+    <header class="flex justify-between bg-primary border-b-[3px] border-b-quaternary">
+        <figure class="flex p-3 align-middle">
+            <a href="./index.html" class="flex align-middle">
+                <img src="./assets/svg/ImageGalley.svg" alt="">
+            </a>
+        </figure>
+        <ul class="flex p-3 align-middle items-center justify-center text-sm font-medium">
+            <li class="mr-5">
+                <a href="">Inicio</a>
+            </li>
+            <li class="mr-5"">
+                <a href="">Imagenes</a>
+            </li>
+            <li class="mr-5"">
+                <a href="">Acerca de</a>
+            </li>
+            <li class="mr-5 ">
+                <a href="">
+                    <button class="bg-secondary p-2 px-4 rounded-[12px] font-bold text-primary">Iniciar Sesión</button>
+                </a>
+            </li>
+            <li class="mr-5 ">
+                <a href="./signin.html" id="header-signin-button">
+                    <button class="bg-shadow p-2 px-4 rounded-[12px] font-bold text-main">Registrarse</button>
+                </a>
+            </li>
+        </ul>
+    </header>
+
+    <main>
+        <section class="flex flex-col max-w-[600px] pl-40 pt-14">
+            <h1 class="font-bold text-main text-2xl px-4">Únete a Image Gallery</h1>
+            <form action="" class="flex flex-col">
+                <label class="px-4 py-3">
+                    <p class="font-medium text-main mb-2">Nombre de usuario</p>
+                    <input 
+                        type="text" 
+                        placeholder="Elige un nombre de usuario" 
+                        autocomplete="off"
+                        required
+                        id="username"
+                        class="bg-shadow text-tertiary p-4 rounded-lg placeholder:text-tertiary w-full">
+                </label>
+
+                <label class="px-4 py-3">
+                    <p class="font-medium text-main mb-2">Correo</p>
+                    <input 
+                        type="email" 
+                        placeholder="correo@ejemplo.com" 
+                        autocomplete="off"
+                        required
+                        id="email"
+                        class="bg-shadow text-tertiary p-4 rounded-lg placeholder:text-tertiary w-full">
+                </label>
+
+                <label class="px-4 py-3">
+                    <p class="font-medium text-main mb-2">Contraseña:</p>
+                    <input 
+                        type="password" 
+                        placeholder="Crea tu contraseña" 
+                        autocomplete="off"
+                        required
+                        id="password"
+                        class="bg-shadow text-tertiary p-4 rounded-lg placeholder:text-tertiary w-full">
+                </label>
+
+                <label class="px-4 py-3">
+                    <p class="font-medium text-main mb-2">Confirma tu contraseña:</p>
+                    <input 
+                        type="password" 
+                        placeholder="Confirma tu contraseña" 
+                        autocomplete="off"
+                        required
+                        id="confirmPassword"
+                        class="bg-shadow text-tertiary p-4 rounded-lg placeholder:text-tertiary w-full">
+                </label>
+                
+                <button type="submit" class="my-4 p-2 px-4 w-[125%] bg-secondary rounded-xl text-primary font-bold" id="signin-button">Registrarse</button>
+            </form>
+        </section>
+    </main>
+
+    <script src="./js/signin.js"></script>
+</body>
+</html>
