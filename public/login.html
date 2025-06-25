@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth scrollbar-hidden">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <title>Image Gallery - Login</title>
+    <link rel="stylesheet" href="./css/tailwind.css">
+</head>
+<body class="bg-primary font-WorkSans">
+    <!-- Nav Bar -->
+    <header class="flex justify-between bg-primary border-b-[3px] border-b-quaternary">
+        <figure class="flex p-3 align-middle">
+            <a href="./index.html" class="flex align-middle">
+                <img src="./assets/svg/ImageGalley.svg" alt="">
+            </a>
+        </figure>
+        <ul class="flex p-3 align-middle items-center justify-center text-sm font-medium">
+            <li class="mr-5">
+                <a href="">Inicio</a>
+            </li>
+            <li class="mr-5"">
+                <a href="">Imagenes</a>
+            </li>
+            <li class="mr-5"">
+                <a href="">Acerca de</a>
+            </li>
+            <li class="mr-5 ">
+                <a href="./login.html">
+                    <button class="bg-secondary p-2 px-4 rounded-[12px] font-bold text-primary">Iniciar Sesión</button>
+                </a>
+            </li>
+            <li class="mr-5 ">
+                <a href="./signin.html">
+                    <button class="bg-shadow p-2 px-4 rounded-[12px] font-bold text-main">Registrarse</button>
+                </a>
+            </li>
+        </ul>
+    </header>
+
+    <!-- Content -->
+    <section class="px-40 py-12">
+        <h1 class="font-bold text-main text-2xl px-4 pt-5 pb-3">Iniciar Sesión</h1>
+        <form action="" class="px-4 flex flex-col">
+            <label for="" class="py-3">
+                <p class="font-medium text-main mb-2">Ingresa nombre de usuario o correo</p>
+                <input
+                    type="text"
+                    placeholder="Nombre usuario o correo..."
+                    autocomplete="off"
+                    id="username"
+                    required
+                    class="bg-shadow text-tertiary p-4 rounded-lg placeholder:text-tertiary w-1/2"
+                >
+            </label>
+            <label for="" class="py-3">
+                <p class="font-medium text-main mb-2">Ingresa tu contraseña</p>
+                <input 
+                    type="password"
+                    placeholder="Escribe tu contraseña..."
+                    autocomplete="off"
+                    id="password"
+                    required
+                    class="bg-shadow text-tertiary p-4 rounded-lg placeholder:text-tertiary w-1/2"
+                >
+            </label>
+            <a href="" class="pb-4 text-tertiary w-fit">¿Olvidaste tu contraseña?</a>
+            <button type="submit" class="my-4 p-2 px-4 py-4 bg-secondary rounded-xl text-primary font-bold w-[53%]" id="login-button">Iniciar Sesión</button>
+        </form>
+        <a href="./signin.html" class="px-4 text-tertiary w-fit">¿Eres nuevo en Image Galley?</a>
+    </section>
+
+    <script src="./js/login.js"></script>
+</body>
+</html>
