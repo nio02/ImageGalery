@@ -16,16 +16,23 @@ function validarFormulario(userName, email, password){
     return bandera;
 }
 
+function limpiarErrores(){
+    document.getElementById("error-message").textContent = "";
+    
+}
+
 //-------Eventos-------
 
 //Prevenir Recarga
-signInButtonHeader.addEventListener('click', (e) => {
-    e.preventDefault();
-});
+// signInButtonHeader.addEventListener('click', (e) => {
+//     e.preventDefault();
+// });
 
 //Registrar Usuario
-signinButton.addEventListener('click', (e) =>{
+signinButton.addEventListener('click', async function (e) {
     e.preventDefault();
+
+    limpiarErrores();
 
     let userName = document.getElementById("username").value;
     let correo = document.getElementById("email").value;
@@ -39,28 +46,40 @@ signinButton.addEventListener('click', (e) =>{
             "correo": correo,
             "password": password
         }
-    
-        fetch(`${urlAPI}/users/register`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(usuario)
-        })
-        .then(response => {
-            if(!response.ok){
-                return response.text().then(errorMessage =>{
-                    throw new Error(errorMessage || "Error al registrar el usuario")
-                })
+        
+        try {
+            const response = await fetch(`${urlAPI}/users/register`, {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify(usuario)
+            });
+
+            if (response.ok){
+                const exito = await response.text();
+                console.log(exito);
+                //Mostrar Modal
+                window.location.href = "./login.html";
+                return exito;
+            } else {
+                const errorMessage = await response.text();
+                if (errorMessage === "El correo ya está registrado"){
+                    document.getElementById("error-message").textContent = `!${errorMessage}! ${correo}`
+                    return;
+                } else if (errorMessage === "El nombre de usuario ya está registrado"){
+                    document.getElementById("error-message").textContent = `!${errorMessage}! ${userName}`
+                    return;
+                }
             }
-            return response.text();
-        })
-        .then(data => {
-            console.log(data)
-        })
-        .catch(error =>{
-            console.log("Error al hacer post:", error)
-        })
+        } catch (error) {
+            // Solo mostramos en consola si es un error grave, como sin conexión.
+            if (error.message.includes('NetworkError') || error.message.includes('Failed to fetch')) {
+                console.error('No se pudo conectar al servidor.');
+            }
+            document.getElementById("error-message").textContent = "Error de conexión. Inténtalo más tarde.";
+        }
+
     } else {
         alert("Debes llenar todos los campos")
     }

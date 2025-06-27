@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth scrollbar-hidden">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <title>Image Gallery - User Account</title>
+    <link rel="stylesheet" href="./css/tailwind.css">
+</head>
+<body class="bg-primary font-WorkSans">
+    <!-- Nav Bar -->
+    <header class="flex justify-between bg-primary border-b-[3px] border-b-quaternary">
+        <figure class="flex p-3 align-middle">
+            <a href="./index.html" class="flex align-middle">
+                <img src="./assets/svg/ImageGalley.svg" alt="">
+            </a>
+        </figure>
+        <ul class="flex p-3 align-middle items-center justify-center text-sm font-medium">
+            <li class="mr-5">
+                <a href="">Inicio</a>
+            </li>
+            <li class="mr-5"">
+                <a href="">Imagenes</a>
+            </li>
+            <li class="mr-5"">
+                <a href="">Acerca de</a>
+            </li>
+            <li class="mr-5 ">
+                <a href="./login.html">
+                    <button class="bg-secondary p-2 px-4 rounded-[12px] font-bold text-primary">Iniciar Sesión</button>
+                </a>
+            </li>
+            <li class="mr-5 ">
+                <a href="./signin.html">
+                    <button class="bg-shadow p-2 px-4 rounded-[12px] font-bold text-main">Registrarse</button>
+                </a>
+            </li>
+        </ul>
+    </header>
+
+    <main>
+        <!-- Content -->
+        <section class="px-40 py-12">
+            <h1 class="font-bold text-main text-2xl mb-4">Tu Perfil</h1>
+            <section id="user-info" class="flex h-32 justify-between mt-10">
+                <article class="flex">
+                    <span class="flex items-center justify-center rounded-full bg-tertiary p-2 mr-4 select-none min-w-32 w-32 h-32 text-5xl font-extralight text-quaternary">US</span>
+                    <div class="flex flex-col justify-center">
+                        <p class="text-main text-xl font-bold">Usuario</p>
+                        <p class="text-tertiary select-none">Nombre de usuario</p>
+                    </div>
+                </article>
+                <div id="user-options" class="flex items-center">
+                    <button id="edit-profile" class="bg-secondary p-2 px-4 rounded-xl font-bold text-primary mx-2">Editar Perfil</button>
+                    <button id="log-out" class="font-bold bg-shadow  p-2 px-4 rounded-xl mx-2 hover:bg-red-500 hover:text-primary">Cerrar Sesión</button>
+                </div>
+            </section>
+            <section class="mt-10">
+                <!-- User ¿CRUD? -->
+                <div class="my-4 flex justify-center">
+                    <button 
+                        class="border-secondary border-2 flex items-center rounded-md border-dashed p-4 bg-primary"
+                        id="load-image"
+                        >
+                        <span class="flex items-center justify-center rounded-full bg-secondary p-2 mr-4 px-4 select-none h-9 w-9 text-quaternary font-bold text-xl">+</span><p class="text-tertiary">Subir imágen</p>
+                    </button>
+                    <button class="ml-10 p-2 px-4 bg-shadow rounded-md font-bold hover:bg-red-500 hover:text-primary">
+                        <p>Eliminar Imágenes</p>
+                    </button>
+                </div>
+
+                
+
+                <!-- Titles -->
+                <div id="titles" class="flex border-b-[3px] border-b-quaternary">
+                    <button id="user-images-button" class="tab-button relative p-4 w-1/2 font-bold active-tab">Imágenes Subidas</button>
+                    <button id="user-collections-button" class="tab-button relative p-4 w-1/2 font-bold text-tertiary">Tus Colecciones</button>
+                </div>
+
+                <!-- User Images -->
+                <div id="user-images" class="py-4 grid grid-cols-3 gap-3">
+                    <a href="./detalle.html" class="image-box overflow-hidden">
+                        <img src="./assets/img/bovino_imagen.jpg" alt="" class="rounded-md w-full h-52 object-cover">
+                    </a>
+                    <a href="./detalle.html" class="image-box overflow-hidden">
+                        <img src="./assets/img/bovino_imagen.jpg" alt="" class="rounded-md w-full h-52 object-cover">
+                    </a>
+                    <a href="./detalle.html" class="image-box overflow-hidden">
+                        <img src="./assets/img/bovino_imagen.jpg" alt="" class="rounded-md w-full h-52 object-cover">
+                    </a>
+                    <a href="./detalle.html" class="image-box overflow-hidden">
+                        <img src="./assets/img/bovino_imagen.jpg" alt="" class="rounded-md w-full h-52 object-cover">
+                    </a>
+                    <a href="./detalle.html" class="image-box overflow-hidden">
+                        <img src="./assets/img/insecto_imagen.jpg" alt="" class="rounded-md w-full h-52 object-cover">
+                    </a>
+                    <a href="./detalle.html" class="image-box overflow-hidden">
+                        <img src="./assets/img/bovino_imagen.jpg" alt="" class="rounded-md w-full h-52 object-cover">
+                    </a>
+                    <a href="./detalle.html" class="image-box overflow-hidden">
+                        <img src="./assets/img/bovino_imagen.jpg" alt="" class="rounded-md w-full h-52 object-cover">
+                    </a>
+                    <a href="./detalle.html" class="image-box overflow-hidden">
+                        <img src="./assets/img/bovino_imagen.jpg" alt="" class="rounded-md w-full h-52 object-cover">
+                    </a>
+                    <a href="./detalle.html" class="image-box overflow-hidden">
+                        <img src="./assets/img/bovino_imagen.jpg" alt="" class="rounded-md w-full h-52 object-cover">
+                    </a>
+                    <a href="./detalle.html" class="image-box overflow-hidden">
+                        <img src="./assets/img/bovino_imagen.jpg" alt="" class="rounded-md w-full h-52 object-cover">
+                    </a>
+                </div>
+                
+                <!-- User Collections -->
+                <div id="user-collections" class="hidden">
+                    <h1>Estas son tus colecciones</h1>
+                    <article class="w-1/5 border-r-[3px] border-lime-600">
+                        <figure class="bg-tertiary">
+                            <p>Colección 1</p>
+                        </figure>
+                        <figure class="bg-tertiary">
+                            <p>Colección 2</p>
+                        </figure>
+                    </article>
+                </div>
+            </section>
+        </section>
+
+    </main>
+
+    <!-- Upload Modal -->
+    <div id="load-modal" class="fixed inset-0 flex bg-main bg-opacity-50 items-center justify-center z-50 w-full h-full hidden">
+        <article class="relative flex flex-col bg-primary p-12 rounded-lg shadow-lg max-w-fit w-full" id="load-modal-content">
+            <button 
+                id="close-load-modal-button" 
+                onclick="mostrarModal()" 
+                class="bg-red-500 flex items-center justify-center font-medium text-primary p-4 absolute top-[-10px] right-[-7px] rounded-full w-[24px] h-[24px]"
+            >X</button>
+
+            <h1 class="font-bold text-main text-2xl mb-4">Cuentanos un poco más sobre tu imagen</h1>
+            
+            <label for="" class="py-4">
+                <p class="font-medium text-main mb-2">Descripción de la imagen</p>
+                <textarea name="" id="image-description" class="bg-shadow text-tertiary p-4 rounded-lg placeholder:text-tertiary w-full" placeholder="Aquí tu descripción... (Máximo 255 caracteres)"></textarea>
+            </label>
+            <label for="" class="py-4">
+                <p class="font-medium text-main mb-2">Elige el archivo de tu imagen</p>
+                <input 
+                    type="file"
+                    accept="image/png, image/jpeg, image/webp"
+                    id="user-file"
+                >
+            </label>
+            <div class="flex px-4 pt-4 justify-center">
+                <button id="load-button" class="bg-secondary font-bold text-primary p-2 px-6 rounded-xl mr-12 w-1/2">Subir</button>
+                <button id="cancel-load-button" class="bg-red-500 p-2 px-2 rounded-xl font-bold text-primary" onclick="mostrarModal()">Cancelar</button>
+            </div>
+            
+        </article>
+    </div>
+
+    <!-- Delete Image Modal -->
+
+
+
+    <script src="./js/account.js"></script>
+</body>
+</html>

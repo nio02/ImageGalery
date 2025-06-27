@@ -18,4 +18,16 @@
   .scrollbar-hidden::-webkit-scrollbar {
     display: none;
   }
+  .tab-button::after{
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    width: 0%;
+    background-color: #1A80E5;
+  }
+  .active-tab::after{
+    width: 100%;
+  }
 }
