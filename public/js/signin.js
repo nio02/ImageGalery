@@ -23,11 +23,6 @@ function limpiarErrores(){
 
 //-------Eventos-------
 
-//Prevenir Recarga
-// signInButtonHeader.addEventListener('click', (e) => {
-//     e.preventDefault();
-// });
-
 //Registrar Usuario
 signinButton.addEventListener('click', async function (e) {
     e.preventDefault();
@@ -82,5 +77,15 @@ signinButton.addEventListener('click', async function (e) {
 
     } else {
         alert("Debes llenar todos los campos")
+    }
+})
+
+//Verificar Sesión
+document.addEventListener('DOMContentLoaded', () => {
+    const usuario = localStorage.getItem("usuarioActual");
+    const token = localStorage.getItem("jwt");
+
+    if(usuario || token){
+        window.location.href = "./index.html"
     }
 })

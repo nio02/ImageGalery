@@ -18,6 +18,7 @@ async function logearUsuario(usuario) {
         if (response.ok) {
             const token = await response.text();
             localStorage.setItem('jwt', token);
+            localStorage.setItem('usuarioActual', usuario.nombreUsuario);
             window.location.href = "./account.html";
         } else if (response.status === 403){
             document.getElementById("error-message").textContent = `!El usuario no existe!`;
@@ -53,6 +54,8 @@ function limpiarErrores(){
 }
 
 //----- Eventos -----
+
+//Log In
 loginButton.addEventListener('click', (e) => {
     e.preventDefault();
 
@@ -72,5 +75,15 @@ loginButton.addEventListener('click', (e) => {
         logearUsuario(usuario);
     } else{
         alert("Debes llenar todos los campos")
+    }
+})
+
+//Verificar Sesión
+document.addEventListener('DOMContentLoaded', () => {
+    const usuario = localStorage.getItem("usuarioActual");
+    const token = localStorage.getItem("jwt");
+
+    if(usuario || token){
+        window.location.href = "./index.html"
     }
 })

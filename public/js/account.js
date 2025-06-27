@@ -9,6 +9,8 @@ const loadImageButton = document.getElementById("load-image");
 const loadModalContainer = document.getElementById("load-modal");
 const loadModalContent = document.getElementById("load-modal-content");
 
+const logoutButton = document.getElementById("log-out");
+
 //----- Funciones -----
 
 function mostrarElementos(){
@@ -24,6 +26,13 @@ function mostrarElementos(){
 function mostrarModal(){
     const modalContainer = document.getElementById("load-modal");
     modalContainer.classList.toggle("hidden");
+}
+
+function cerrarSesion(){
+    localStorage.removeItem("usuarioActual");
+    localStorage.removeItem("jwt");
+
+    window.location.href = "./login.html"
 }
 
 //----- Eventos ------
@@ -53,4 +62,9 @@ loadModalContainer.addEventListener('click', (e) => {
     if (e.target === loadModalContainer){
         mostrarModal();
     }
+})
+
+//Cerrar Sesión
+logoutButton.addEventListener('click', () => {
+    cerrarSesion();
 })
