@@ -36,28 +36,55 @@ function renderizarUsuario(){
     headerContainer.appendChild(accountButton);
 }
 
+function mostrarModalLogOut(){
+    const body = document.body;
+    const modal = document.createElement("div");
+
+    modal.innerHTML = `
+        <div id="load-modal" class="fixed inset-0 flex bg-main bg-opacity-50 items-center justify-center z-50 w-full h-full">
+        <article class="relative flex flex-col bg-primary p-12 rounded-lg shadow-lg max-w-fit w-full justify-center items-center">
+            <h1 class="font-bold text-main text-2xl mb-4">Tu sesión ha expirado</h1>
+            <p class="text-tertiary">Te vamos a redirigir al inicio de sesión</p>
+        </article>
+        </div>
+    `;
+
+    body.appendChild(modal);
+
+    setTimeout(() => {
+        localStorage.removeItem("jwt");
+        localStorage.removeItem("usuarioActual");
+        window.location.href = "./login.html"
+    }, 3000)
+}
+
 async function mostrarOpcionesUsuario(){
     const usuario = localStorage.getItem("usuarioActual");
     const token = localStorage.getItem("jwt");
 
-    try {
-        const response = await fetch(`${url}/users/cuenta`, {
-            headers: {
-                Authorization: `Bearer ${token}`
+    if (usuario || token){
+        try {
+            const response = await fetch(`${url}/users/cuenta`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+    
+            if (response.ok){
+                const mensaje = await response.text();
+                console.log(mensaje)
+                renderizarUsuario();
+            } else {
+                if (response.status === 401 || response.status === 403){
+                    mostrarModalLogOut();
+                }
             }
-        });
-
-        if (response.ok){
-            const mensaje = await response.text();
-            console.log(mensaje)
-            renderizarUsuario();
-        } else {
-            const errorMessage = await response.text();
-            console.log(errorMessage)
+        } catch (error) {
+            // Solo mostramos en consola si es un error grave, como sin conexión.
+            if (error.message.includes('NetworkError') || error.message.includes('Failed to fetch')) {
+                console.error('No se pudo conectar al servidor.');
+            }
         }
-
-    } catch {
-
     }
 }
 

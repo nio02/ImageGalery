@@ -11,6 +11,9 @@ const loadModalContent = document.getElementById("load-modal-content");
 
 const logoutButton = document.getElementById("log-out");
 
+const infoUserName = document.getElementById("profile-info-username");
+const infoUserLogo = document.getElementById("user-logo");
+
 //----- Funciones -----
 
 function mostrarElementos(){
@@ -21,6 +24,13 @@ function mostrarElementos(){
     userCollectionButton.classList.toggle("active-tab");
     userCollectionButton.classList.toggle("text-tertiary");
     userCollectionContainer.classList.toggle("hidden");
+}
+
+function mostrarInformacion(){
+    let user = localStorage.getItem("usuarioActual");
+    infoUserName.textContent = user;
+
+    infoUserLogo.textContent = `${user.slice(0, 2).toLocaleUpperCase()}`;
 }
 
 function mostrarModal(){
@@ -36,6 +46,19 @@ function cerrarSesion(){
 }
 
 //----- Eventos ------
+
+//Mostrar Informacion
+document.addEventListener('DOMContentLoaded', () => {
+    //Validar
+    const usuario = localStorage.getItem("usuarioActual");
+    const token = localStorage.getItem("jwt");
+    
+    if(usuario == null || token == null){
+        window.location.href = "./login.html"
+    }
+    //Mostrar informacion
+    mostrarInformacion();
+})
 
 //Mostrar Elementos
 userImageButton.addEventListener('click', () => {
