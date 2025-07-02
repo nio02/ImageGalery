@@ -78,6 +78,7 @@ async function mostrarOpcionesUsuario(){
                 if (response.status === 401 || response.status === 403){
                     mostrarModalLogOut();
                 }
+                return;
             }
         } catch (error) {
             // Solo mostramos en consola si es un error grave, como sin conexión.
