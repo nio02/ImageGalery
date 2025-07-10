@@ -47,10 +47,16 @@ function ocultarElementos(){
     })    
 }
 
+function limpiarImagenesUsuario(){
+    while (userImagesContainer.firstChild){
+        userImagesContainer.removeChild(userImagesContainer.firstChild);
+    }
+}
+
 function loadSkeleton(){
     const loadAnimation = document.createElement('div');
     loadAnimation.textContent = "Cargando..."
-    
+
 }
 
 function cerrarSesion(){
@@ -91,16 +97,18 @@ async function subirImagen() {
         });
     
         const dataUsuario = await responseUsuario.json();
-        let idUsuario = dataUsuario.id_usuario;
+        let idUsuario = dataUsuario.id;
     
         let solicitud = {
             "descripcion": `${imageUserDescription.value}`,
             "url": `${urlImage}`,
             "usuario": {
-                "id_usuario": idUsuario
+                "id": idUsuario
             }
         }
         
+        console.log(solicitud);
+
         const saveImage = await fetch(`${urlAPI}/images/upload`, {
             method: 'POST',
             headers: {
@@ -127,10 +135,46 @@ async function subirImagen() {
 
 }
 
+function mostrarImagenesUsuario(url){
+    const imageContainer = document.createElement('a');
+    imageContainer.href = "./detalle.html";
+    imageContainer.classList.add("image-box", "overflow-hidden");
+    imageContainer.innerHTML = `
+        <img src="${url}" alt="" class="rounded-md w-full h-52 object-cover">
+    `;
+
+    userImagesContainer.prepend(imageContainer);
+}
+
+async function renderizarImagenesUsuario(id, token) {
+    let imagenesUrls = [];
+    try {
+        const response = await fetch(`${urlAPI}/images/username/${id}`, {
+            method: 'GET',
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        
+        const data = await response.json();
+
+        console.log(data);
+
+        for (let i = 0; i < data.length; i++){
+            let urlRender = data[i].url;
+            console.log(urlRender);
+            mostrarImagenesUsuario(urlRender);
+        }
+
+    } catch (error) {
+        console.error("Error al obtener imagenes:", error);
+    }
+}
+
 //----- Eventos ------
 
 //Mostrar Informacion
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     //Validar
     const usuario = localStorage.getItem("usuarioActual");
     const token = localStorage.getItem("jwt");
@@ -140,6 +184,27 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     //Mostrar informacion
     mostrarInformacion();
+
+    //Traer Usuario
+    let userId;
+    let userName;
+    const responseUsuario = await fetch(`${urlAPI}/users/username/${usuario}`, {
+        method: 'GET',
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
+
+    if(responseUsuario.ok){
+        const dataUsuario = await responseUsuario.json();
+        userId = dataUsuario.id;
+        userName = dataUsuario.nombreUsuario;
+    } else {
+        console.log(error)
+    }
+    
+    renderizarImagenesUsuario(userId, token);
+
 })
 
 //Mostrar Elementos
@@ -175,6 +240,31 @@ logoutButton.addEventListener('click', () => {
 })
 
 //Subir imagen
-loadButton.addEventListener('click', () => {
-    subirImagen();
+loadButton.addEventListener('click',async () => {
+    await subirImagen();
+    await limpiarImagenesUsuario();
+
+    const usuario = localStorage.getItem("usuarioActual");
+    const token = localStorage.getItem("jwt");
+
+    //Traer Usuario
+    let userId;
+    let userName;
+    const responseUsuario = await fetch(`${urlAPI}/users/username/${usuario}`, {
+        method: 'GET',
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
+
+    if(responseUsuario.ok){
+        const dataUsuario = await responseUsuario.json();
+        userId = dataUsuario.id;
+        userName = dataUsuario.nombreUsuario;
+    } else {
+        console.log(error)
+    }
+    
+    renderizarImagenesUsuario(userId, token);
+
 })

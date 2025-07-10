@@ -28,9 +28,9 @@ async function logearUsuario(usuario) {
             document.getElementById("error-message").textContent = `!${errorMessage}!`;
         }
 
-        const data = await response.json();
-        console.log(data)
-        return data
+        //const data = await response.json();
+        //console.log(data)
+        //return data
     } catch (error) {
         // Solo mostramos en consola si es un error grave, como sin conexión.
         if (error.message.includes('NetworkError') || error.message.includes('Failed to fetch')) {
