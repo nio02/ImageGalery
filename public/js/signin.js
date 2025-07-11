@@ -1,3 +1,5 @@
+import { validarSesionExistente } from "./session.js";
+
 //-------Variables-------
 
 const signInButtonHeader = document.getElementById("header-signin-button");
@@ -82,10 +84,5 @@ signinButton.addEventListener('click', async function (e) {
 
 //Verificar Sesión
 document.addEventListener('DOMContentLoaded', () => {
-    const usuario = localStorage.getItem("usuarioActual");
-    const token = localStorage.getItem("jwt");
-
-    if(usuario || token){
-        window.location.href = "./index.html"
-    }
+    validarSesionExistente();
 })

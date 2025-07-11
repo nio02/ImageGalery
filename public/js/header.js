@@ -1,3 +1,5 @@
+import { obtenerUsuarioActual, cerrarSesion, obtenerToken } from "./session.js";
+
 //----- Variables -----
 
 const headerContainer = document.getElementById("nav-options");
@@ -9,7 +11,7 @@ function renderizarUsuario(){
     const loginButton = document.getElementById("login-header-button");
     const signinButton = document.getElementById("signin-header-button");
 
-    let nombreUsuario = localStorage.getItem("usuarioActual");
+    let nombreUsuario = obtenerUsuarioActual();
 
     if (loginButton){
         headerContainer.removeChild(loginButton);
@@ -52,15 +54,13 @@ function mostrarModalLogOut(){
     body.appendChild(modal);
 
     setTimeout(() => {
-        localStorage.removeItem("jwt");
-        localStorage.removeItem("usuarioActual");
-        window.location.href = "./login.html"
+        cerrarSesion();
     }, 3000)
 }
 
 async function mostrarOpcionesUsuario(){
-    const usuario = localStorage.getItem("usuarioActual");
-    const token = localStorage.getItem("jwt");
+    const usuario = obtenerUsuarioActual();
+    const token = obtenerToken();
 
     if (usuario || token){
         try {

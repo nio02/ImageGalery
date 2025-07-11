@@ -1,5 +1,8 @@
+import { cerrarSesion, obtenerUsuarioActual, obtenerToken, validarSesion } from "./session.js";
+import { subirACloud } from "./cloudinary.js";
+import { traerUsuarioPorUserName, crearImagenBack, imagenPorId } from "./api.js";
+
 //----- Variables -----
-const urlAPI = "http://localhost:8080";
 
 const userImageButton = document.getElementById("user-images-button");
 const userCollectionButton = document.getElementById("user-collections-button");
@@ -9,6 +12,8 @@ const userCollectionContainer = document.getElementById("user-collections");
 const loadImageButton = document.getElementById("load-image");
 const loadModalContainer = document.getElementById("load-modal");
 const loadModalContent = document.getElementById("load-modal-content");
+const closeModalButton = document.getElementById("close-load-modal-button");
+const cancelLoadButton = document.getElementById("cancel-load-button");
 
 const logoutButton = document.getElementById("log-out");
 
@@ -59,80 +64,63 @@ function loadSkeleton(){
 
 }
 
-function cerrarSesion(){
-    localStorage.removeItem("usuarioActual");
-    localStorage.removeItem("jwt");
-
-    window.location.href = "./login.html"
-}
-
 async function subirImagen() {
-    try {
-        const token = localStorage.getItem("jwt");
-        const userFile = document.getElementById("user-file").files[0];
-    
-        if (!userFile){
-            alert("Por favor, sube un archivo")
-            return;
-        }
-        
-        const formData = new FormData();
-        formData.append("file", userFile);
-        formData.append("upload_preset", "ImageGallery");
-    
-        const responseCloudinary = await fetch('https://api.cloudinary.com/v1_1/donrhclb6/image/upload', {
-            method: 'POST',
-            body: formData
-        });
-    
-        const dataCloudinary = await responseCloudinary.json();
-        const urlImage = dataCloudinary.secure_url;
-        console.log("Imagen subida en cloudinary", dataCloudinary.secure_url);
-    
-        const responseUsuario = await fetch(`${urlAPI}/users/username/${localStorage.getItem("usuarioActual")}`, {
-            method: 'GET',
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        });
-    
-        const dataUsuario = await responseUsuario.json();
-        let idUsuario = dataUsuario.id;
-    
-        let solicitud = {
-            "descripcion": `${imageUserDescription.value}`,
-            "url": `${urlImage}`,
-            "usuario": {
-                "id": idUsuario
-            }
-        }
-        
-        console.log(solicitud);
+    const userName = obtenerUsuarioActual();
+    const token = obtenerToken();
+    const userFile = document.getElementById("user-file").files[0];
 
-        const saveImage = await fetch(`${urlAPI}/images/upload`, {
-            method: 'POST',
-            headers: {
-                'Content-type': 'application/json',
-                Authorization: `Bearer ${token}`
-            },
-            body: JSON.stringify(solicitud)
-        })
+    if (!userFile){
+        alert("Por favor, sube un archivo")
+        return;
+    }
     
-        if (saveImage.ok){
-            const mensaje = await saveImage.text();
-            console.log(mensaje)
-            mostrarModal();
-            return mensaje;
-        } else {
-            ocultarElementos();
-        }
-    
-        mostrarModal();
-        
+    //Generar URL de imagen
+    let dataCloudinary;
+    let urlImage;
+
+    try {
+        dataCloudinary = await subirACloud(userFile);
+        urlImage = dataCloudinary.secure_url;
+        console.log("Imagen subida en cloudinary", dataCloudinary.secure_url);
     } catch (error) {
-        console.error("Error : ", error)
+        console.error(error);
+        alert(`Error al subir imagen: ${error.message}`);
+        return;
     }
 
+    //Traer Usuario por userName
+    let dataUsuario;
+
+    try {
+        dataUsuario = await traerUsuarioPorUserName(userName, token);
+    } catch (error) {
+        console.error(error);
+        alert(`Error al traer usuario: ${error.message}`);
+        return;
+    }
+
+    let idUsuario = dataUsuario.id;
+    
+    //Asignar Imagen al usuario
+
+    let solicitud = {
+        "descripcion": `${imageUserDescription.value}`,
+        "url": `${urlImage}`,
+        "usuario": {
+            "id": idUsuario
+        }
+    };
+    
+    try {
+        const saveImage = await crearImagenBack(solicitud, token);
+        console.log(saveImage);
+        mostrarModal();
+    } catch (error) {
+        ocultarElementos();
+        console.error(error);
+        alert(`Error al crear imagen: ${error.message}`);
+        return;
+    }
 }
 
 function mostrarImagenesUsuario(url){
@@ -147,25 +135,13 @@ function mostrarImagenesUsuario(url){
 }
 
 async function renderizarImagenesUsuario(id, token) {
-    let imagenesUrls = [];
     try {
-        const response = await fetch(`${urlAPI}/images/username/${id}`, {
-            method: 'GET',
-            headers: {
-                Authorization: `Bearer ${token}`
-            }
-        });
-        
-        const data = await response.json();
-
-        console.log(data);
+        const data = await imagenPorId(id, token);
 
         for (let i = 0; i < data.length; i++){
             let urlRender = data[i].url;
-            console.log(urlRender);
             mostrarImagenesUsuario(urlRender);
         }
-
     } catch (error) {
         console.error("Error al obtener imagenes:", error);
     }
@@ -176,31 +152,23 @@ async function renderizarImagenesUsuario(id, token) {
 //Mostrar Informacion
 document.addEventListener('DOMContentLoaded', async () => {
     //Validar
-    const usuario = localStorage.getItem("usuarioActual");
-    const token = localStorage.getItem("jwt");
-    
-    if(usuario == null || token == null){
-        window.location.href = "./login.html"
-    }
+    validarSesion();
     //Mostrar informacion
     mostrarInformacion();
 
+    let usuario = obtenerUsuarioActual();
+    let token = obtenerToken();
+
     //Traer Usuario
     let userId;
-    let userName;
-    const responseUsuario = await fetch(`${urlAPI}/users/username/${usuario}`, {
-        method: 'GET',
-        headers: {
-            Authorization: `Bearer ${token}`
-        }
-    });
 
-    if(responseUsuario.ok){
-        const dataUsuario = await responseUsuario.json();
-        userId = dataUsuario.id;
-        userName = dataUsuario.nombreUsuario;
-    } else {
-        console.log(error)
+    try {
+        const responseUsuario = await traerUsuarioPorUserName(usuario, token);
+        userId = responseUsuario.id;
+    } catch (error) {
+        console.error(error);
+        alert(`Error al obtener usuario: ${error.message}`);
+        return;
     }
     
     renderizarImagenesUsuario(userId, token);
@@ -233,6 +201,13 @@ loadModalContainer.addEventListener('click', (e) => {
         mostrarModal();
     }
 })
+//Botones Cerrar Modal
+closeModalButton.addEventListener('click', () =>{
+    mostrarModal();
+})
+cancelLoadButton.addEventListener('click', () =>{
+    mostrarModal();
+})
 
 //Cerrar Sesión
 logoutButton.addEventListener('click', () => {
@@ -242,27 +217,22 @@ logoutButton.addEventListener('click', () => {
 //Subir imagen
 loadButton.addEventListener('click',async () => {
     await subirImagen();
-    await limpiarImagenesUsuario();
+    limpiarImagenesUsuario();
 
-    const usuario = localStorage.getItem("usuarioActual");
-    const token = localStorage.getItem("jwt");
+    //Traer Usuario
+    let usuario = obtenerUsuarioActual();
+    let token = obtenerToken();
 
     //Traer Usuario
     let userId;
-    let userName;
-    const responseUsuario = await fetch(`${urlAPI}/users/username/${usuario}`, {
-        method: 'GET',
-        headers: {
-            Authorization: `Bearer ${token}`
-        }
-    });
 
-    if(responseUsuario.ok){
-        const dataUsuario = await responseUsuario.json();
-        userId = dataUsuario.id;
-        userName = dataUsuario.nombreUsuario;
-    } else {
-        console.log(error)
+    try {
+        const responseUsuario = await traerUsuarioPorUserName(usuario, token);
+        userId = responseUsuario.id;
+    } catch (error) {
+        console.error(error);
+        alert(`Error al obtener usuario: ${error.message}`);
+        return;
     }
     
     renderizarImagenesUsuario(userId, token);

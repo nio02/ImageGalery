@@ -1,3 +1,5 @@
+import { validarSesionExistente } from "./session.js";
+
 //----- Variables ------
 let loginButton = document.getElementById("login-button");
 
@@ -27,10 +29,6 @@ async function logearUsuario(usuario) {
             console.log(errorMessage)
             document.getElementById("error-message").textContent = `!${errorMessage}!`;
         }
-
-        //const data = await response.json();
-        //console.log(data)
-        //return data
     } catch (error) {
         // Solo mostramos en consola si es un error grave, como sin conexión.
         if (error.message.includes('NetworkError') || error.message.includes('Failed to fetch')) {
@@ -80,10 +78,5 @@ loginButton.addEventListener('click', (e) => {
 
 //Verificar Sesión
 document.addEventListener('DOMContentLoaded', () => {
-    const usuario = localStorage.getItem("usuarioActual");
-    const token = localStorage.getItem("jwt");
-
-    if(usuario || token){
-        window.location.href = "./index.html"
-    }
+    validarSesionExistente();
 })
