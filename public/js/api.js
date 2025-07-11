@@ -61,8 +61,8 @@ export async function imagenPorId(id, token) {
 
 //Acceder a cuenta
 
-export async function accederCuenta(url, token) {
-    const response = await fetch(`${url}/users/cuenta`, {
+export async function accederCuenta(token) {
+    const response = await fetch(`${urlCen}/users/cuenta`, {
         headers: {
             Authorization: `Bearer ${token}`
         }
@@ -70,5 +70,6 @@ export async function accederCuenta(url, token) {
 
     if(response.ok){
         let mensaje = await response.text();
+        return mensaje;
     }
 }

@@ -1,17 +1,15 @@
+import { accederCuenta } from "./api.js";
 import { obtenerUsuarioActual, cerrarSesion, obtenerToken } from "./session.js";
 
 //----- Variables -----
 
 const headerContainer = document.getElementById("nav-options");
-const url = "http://localhost:8080";
 
 //----- Funciones -----
 
-function renderizarUsuario(){
+function renderizarUsuario(userName){
     const loginButton = document.getElementById("login-header-button");
     const signinButton = document.getElementById("signin-header-button");
-
-    let nombreUsuario = obtenerUsuarioActual();
 
     if (loginButton){
         headerContainer.removeChild(loginButton);
@@ -23,7 +21,7 @@ function renderizarUsuario(){
     let infoUsuario = document.createElement("li");
     infoUsuario.classList.add("mr-5");
     infoUsuario.innerHTML = `
-            <p class="bg-shadow rounded-lg py-2 px-2"><span class="rounded-full bg-secondary p-2 mr-4 select-none">${nombreUsuario.slice(0, 2).toLocaleUpperCase()}</span>Bienvenido, ${nombreUsuario}</p>
+            <p class="bg-shadow rounded-lg py-2 px-2"><span class="rounded-full bg-secondary p-2 mr-4 select-none">${userName.slice(0, 2).toLocaleUpperCase()}</span>Bienvenido, ${userName}</p>
     `;
 
     let accountButton = document.createElement("li");
@@ -64,16 +62,9 @@ async function mostrarOpcionesUsuario(){
 
     if (usuario || token){
         try {
-            const response = await fetch(`${url}/users/cuenta`, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            });
-    
-            if (response.ok){
-                const mensaje = await response.text();
-                console.log(mensaje)
-                renderizarUsuario();
+            const response = await accederCuenta(token);
+            if (response){
+                renderizarUsuario(usuario);
             } else {
                 if (response.status === 401 || response.status === 403){
                     mostrarModalLogOut();
