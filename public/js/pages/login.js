@@ -1,4 +1,4 @@
-import { validarSesionExistente } from "./session.js";
+import { validarSesionExistente } from "../utils/session.js";
 
 //----- Variables ------
 let loginButton = document.getElementById("login-button");

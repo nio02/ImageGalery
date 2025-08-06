@@ -1,5 +1,5 @@
-import { accederCuenta } from "./api.js";
-import { obtenerUsuarioActual, cerrarSesion, obtenerToken } from "./session.js";
+import { accederCuenta } from "../services/api.js";
+import { obtenerUsuarioActual, cerrarSesion, obtenerToken } from "../utils/session.js";
 
 //----- Variables -----
 

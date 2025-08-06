@@ -158,9 +158,21 @@
 
     <!-- Delete Image Modal -->
 
+    <div id="load-modal" class="fixed inset-0 flex bg-main bg-opacity-50 items-center justify-center z-50 w-full h-full hidden">
+        <article class="relative flex flex-col bg-primary p-12 rounded-lg shadow-lg max-w-fit w-full" id="load-modal-content">
+            <button 
+                id="close-delete-modal-button"  
+                class="bg-red-500 flex items-center justify-center font-medium text-primary p-4 absolute top-[-10px] right-[-7px] rounded-full w-[24px] h-[24px]"
+            >X</button>
 
+            <h1 class="font-bold text-main text-2xl mb-4">Elige la imagen que deseas borrar</h1>
+            
+            
+            
+        </article>
+    </div>
 
-    <script src="./js/account.js" type="module"></script>
-    <script src="./js/header.js" type="module"></script>
+    <script src="./js/pages/account.js" type="module"></script>
+    <script src="./js/components/header.js" type="module"></script>
 </body>
 </html>

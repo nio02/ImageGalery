@@ -1,6 +1,6 @@
-import { cerrarSesion, obtenerUsuarioActual, obtenerToken, validarSesion } from "./session.js";
-import { subirACloud } from "./cloudinary.js";
-import { traerUsuarioPorUserName, crearImagenBack, imagenPorId } from "./api.js";
+import { cerrarSesion, obtenerUsuarioActual, obtenerToken, validarSesion } from "../utils/session.js";
+import { subirACloud } from "../services/cloudinary.js";
+import { traerUsuarioPorUserName, crearImagenBack, imagenPorId } from "../services/api.js";
 
 //----- Variables -----
 
@@ -146,6 +146,8 @@ async function renderizarImagenesUsuario(id, token) {
         console.error("Error al obtener imagenes:", error);
     }
 }
+
+
 
 //----- Eventos ------
 
