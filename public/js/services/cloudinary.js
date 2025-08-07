@@ -19,3 +19,7 @@ export async function subirACloud(userFile){
 }
 
 //Eliminar de Cloud
+
+export async function eliminarImagenCloud(params) {
+    
+}

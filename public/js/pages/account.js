@@ -1,6 +1,6 @@
 import { cerrarSesion, obtenerUsuarioActual, obtenerToken, validarSesion } from "../utils/session.js";
 import { subirACloud } from "../services/cloudinary.js";
-import { traerUsuarioPorUserName, crearImagenBack, imagenPorId } from "../services/api.js";
+import { traerUsuarioPorUserName, crearImagenBack, imagenPorId, eliminarImagenBack } from "../services/api.js";
 
 //----- Variables -----
 
@@ -22,6 +22,13 @@ const infoUserLogo = document.getElementById("user-logo");
 
 const loadButton = document.getElementById("load-button");
 const imageUserDescription = document.getElementById("image-description");
+
+const deleteModalContainer = document.getElementById("delete-modal")
+const deleteModalButton = document.getElementById("delete-image")
+const closeDeleteModalButton = document.getElementById("close-delete-modal-button")
+const deleteModalContent = document.getElementById("delete-container")
+const cancelDeleteButton = document.getElementById("cancel-delete-button")
+const deleteImageButton = document.getElementById("delete-button")
 
 //----- Funciones -----
 
@@ -46,6 +53,12 @@ function mostrarModal(){
     loadModalContainer.classList.toggle("hidden");
 }
 
+function mostrarEliminarModal(){
+    deleteModalContainer.classList.toggle("hidden");
+    const body = document.querySelector('body')
+    body.classList.toggle("overflow-hidden")
+}
+
 function ocultarElementos(){
     Array.from(loadModalContainer.children).forEach(hijo =>{
         hijo.classList.toggle("hidden");
@@ -55,6 +68,12 @@ function ocultarElementos(){
 function limpiarImagenesUsuario(){
     while (userImagesContainer.firstChild){
         userImagesContainer.removeChild(userImagesContainer.firstChild);
+    }
+}
+
+function limpiarEliminarImagenes(){
+    while (deleteModalContent.firstChild){
+        deleteModalContent.removeChild(deleteModalContent.firstChild);
     }
 }
 
@@ -123,12 +142,12 @@ async function subirImagen() {
     }
 }
 
-function mostrarImagenesUsuario(url){
+function mostrarImagenesUsuario(imageUrl, imageId){
     const imageContainer = document.createElement('a');
     imageContainer.href = "./detalle.html";
     imageContainer.classList.add("image-box", "overflow-hidden");
     imageContainer.innerHTML = `
-        <img src="${url}" alt="" class="rounded-md w-full h-52 object-cover">
+        <img src="${imageUrl}" alt="" class="rounded-md w-full h-52 object-cover" data-image-id=${imageId}>
     `;
 
     userImagesContainer.prepend(imageContainer);
@@ -140,14 +159,38 @@ async function renderizarImagenesUsuario(id, token) {
 
         for (let i = 0; i < data.length; i++){
             let urlRender = data[i].url;
-            mostrarImagenesUsuario(urlRender);
+            let idRender = data[i].id_imagen;
+            mostrarImagenesUsuario(urlRender, idRender);
         }
     } catch (error) {
         console.error("Error al obtener imagenes:", error);
     }
 }
 
+function renderizarEliminarImagenes(){
 
+    const images = document.querySelectorAll('#user-images img')
+    for (let i = 0; i < images.length; i++){
+        let url = images[i].src;
+        let imageId = images[i].dataset.imageId;
+
+        let item = document.createElement('label');
+        item.classList.add("relative")
+        item.innerHTML = `
+            <input 
+                type="checkbox"
+                class="selected-images absolute top-2 left-2 w-5 h-5 z-10 bg-white bg-opacity-80 rounded-full"
+                data-image-id="${imageId}"
+            >
+            <img 
+                src="${url}" 
+                data-image-id="${imageId}"
+                class="rounded-md w-full h-52 object-cover"
+                >
+        `
+        deleteModalContent.appendChild(item)
+    }
+}
 
 //----- Eventos ------
 
@@ -239,4 +282,70 @@ loadButton.addEventListener('click',async () => {
     
     renderizarImagenesUsuario(userId, token);
 
+})
+
+//Mostrar modal para eliminar imagen
+deleteModalButton.addEventListener('click', () => {
+    limpiarEliminarImagenes()
+
+    mostrarEliminarModal()
+
+    renderizarEliminarImagenes()
+})
+deleteModalContainer.addEventListener('click', (e) => {
+    if(e.target === deleteModalContainer) {
+        mostrarEliminarModal()
+    }
+})
+
+//BotonCerrarEliminarModal
+closeDeleteModalButton.addEventListener('click', () => {
+    mostrarEliminarModal()
+})
+cancelDeleteButton.addEventListener('click', () => {
+    mostrarEliminarModal()
+})
+
+//Eliminar imagen
+deleteImageButton.addEventListener('click', async () => {
+    const checkedImages = document.querySelectorAll('.selected-images:checked');
+
+    let token = obtenerToken();
+
+    if(checkedImages.length === 0) {
+        alert("Debes elegir una imagen!");
+    }
+
+    for(let i = 0; i < checkedImages.length; i++){
+        let imageId = checkedImages[i].dataset.imageId;
+        try {
+            await eliminarImagenBack(imageId, token)
+        } catch (e) {
+            console.error(error);
+            alert(`Error al eliminar imagen: ${error.message}`);
+            return;
+        }
+    }
+    //cerrar
+    mostrarEliminarModal()
+    //limpiar
+    limpiarEliminarImagenes()
+    limpiarImagenesUsuario()
+    
+    //Traer Usuario
+    let usuario = obtenerUsuarioActual();
+
+    //Traer Usuario
+    let userId;
+
+    try {
+        const responseUsuario = await traerUsuarioPorUserName(usuario, token);
+        userId = responseUsuario.id;
+    } catch (error) {
+        console.error(error);
+        alert(`Error al obtener usuario: ${error.message}`);
+        return;
+    }
+    
+    renderizarImagenesUsuario(userId, token);
 })

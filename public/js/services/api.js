@@ -61,22 +61,22 @@ export async function imagenPorId(id, token) {
 
 //Eliminar imagen
 
-// export async function eliminarImagenBack(idImagen, token) {
-//     try {
-//         const response = await fetch(`${urlCen}/images/delete/${idImagen}`, {
-//             method: 'DELETE',
-//             headers: {
-//                 Authorization: `Bearer ${token}`
-//             }
-//         });
+export async function eliminarImagenBack(idImagen, token) {
+    try {
+        const response = await fetch(`${urlCen}/images/delete/${idImagen}`, {
+            method: 'DELETE',
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
 
-//         if (response.ok) {
-//             return response.text();
-//         }
-//     } catch (e) {
-//         throw new Error('Error eliminando la imagen')
-//     }
-// }
+        if (response.ok) {
+            return response.text();
+        }
+    } catch (e) {
+        throw new Error('Error eliminando la imagen')
+    }
+}
 
 //Acceder a cuenta
 

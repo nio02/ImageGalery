@@ -64,7 +64,10 @@
                         >
                         <span class="flex items-center justify-center rounded-full bg-secondary p-2 mr-4 px-4 select-none h-9 w-9 text-quaternary font-bold text-xl">+</span><p class="text-tertiary">Subir imágen</p>
                     </button>
-                    <button class="ml-10 p-2 px-4 bg-shadow rounded-md font-bold hover:bg-red-500 hover:text-primary">
+                    <button 
+                        class="ml-10 p-2 px-4 bg-shadow rounded-md font-bold hover:bg-red-500 hover:text-primary"
+                        id="delete-image"
+                        >
                         <p>Eliminar Imágenes</p>
                     </button>
                 </div>
@@ -158,16 +161,23 @@
 
     <!-- Delete Image Modal -->
 
-    <div id="load-modal" class="fixed inset-0 flex bg-main bg-opacity-50 items-center justify-center z-50 w-full h-full hidden">
-        <article class="relative flex flex-col bg-primary p-12 rounded-lg shadow-lg max-w-fit w-full" id="load-modal-content">
+    <div id="delete-modal" class="fixed inset-0 flex bg-main bg-opacity-50 items-center justify-center z-50 w-full h-full hidden">
+        <article class="relative flex flex-col bg-primary p-12 rounded-lg shadow-lg max-w-fit w-full" id="delete-modal-content">
             <button 
                 id="close-delete-modal-button"  
                 class="bg-red-500 flex items-center justify-center font-medium text-primary p-4 absolute top-[-10px] right-[-7px] rounded-full w-[24px] h-[24px]"
             >X</button>
 
-            <h1 class="font-bold text-main text-2xl mb-4">Elige la imagen que deseas borrar</h1>
+            <h1 class="font-bold text-main text-2xl mb-4 text-center">Elige la imagen o imágenes que deseas borrar</h1>
             
-            
+            <div id="delete-container" class="py-4 grid grid-cols-2 gap-3 h-[50vh] overflow-y-scroll">
+
+            </div>
+
+            <div class="flex px-4 pt-4 justify-center">
+                <button id="delete-button" class="bg-secondary font-bold text-primary p-2 px-6 rounded-xl mr-12 w-1/2">Eliminar</button>
+                <button id="cancel-delete-button" class="bg-red-500 p-2 px-2 rounded-xl font-bold text-primary">Cancelar</button>
+            </div>
             
         </article>
     </div>
