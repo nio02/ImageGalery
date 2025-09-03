@@ -92,20 +92,6 @@ async function subirImagen() {
         alert("Por favor, sube un archivo")
         return;
     }
-    
-    //Generar URL de imagen
-    let dataCloudinary;
-    let urlImage;
-
-    try {
-        dataCloudinary = await subirACloud(userFile);
-        urlImage = dataCloudinary.secure_url;
-        console.log("Imagen subida en cloudinary", dataCloudinary.secure_url);
-    } catch (error) {
-        console.error(error);
-        alert(`Error al subir imagen: ${error.message}`);
-        return;
-    }
 
     //Traer Usuario por userName
     let dataUsuario;
@@ -124,21 +110,17 @@ async function subirImagen() {
 
     let solicitud = {
         "descripcion": `${imageUserDescription.value}`,
-        "url": `${urlImage}`,
-        "usuario": {
-            "id": idUsuario
-        }
+        "usuarioId": idUsuario
     };
     
     try {
-        const saveImage = await crearImagenBack(solicitud, token);
+        const saveImage = await crearImagenBack(solicitud, userFile, token);
         console.log(saveImage);
         mostrarModal();
     } catch (error) {
         ocultarElementos();
         console.error(error);
         alert(`Error al crear imagen: ${error.message}`);
-        return;
     }
 }
 

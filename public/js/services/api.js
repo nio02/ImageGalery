@@ -21,22 +21,26 @@ export async function traerUsuarioPorUserName(userName, token) {
 
 //Crear Imagen en BD
 
-export async function crearImagenBack(solicitud, token) {
+export async function crearImagenBack(imagenDto, file, token) {
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("descripcion", imagenDto.descripcion);
+    formData.append("usuarioId", imagenDto.usuarioId)
+
     const saveImage = await fetch(`${urlCen}/images/upload`, {
         method: 'POST',
         headers: {
-            'Content-type': 'application/json',
             Authorization: `Bearer ${token}`
         },
-        body: JSON.stringify(solicitud)
+        body: formData
     })
 
     if (saveImage.ok){
         const mensaje = await saveImage.text();
         return mensaje;
     } else {
-        const mensaje = await responseUsuario.text();
-        throw new Error(`Error HTTP ${responseUsuario.status}: ${mensaje}`);
+        const mensaje = await saveImage.text();
+        throw new Error(`Error HTTP ${saveImage.status}: ${mensaje}`);
     }
 }
 
