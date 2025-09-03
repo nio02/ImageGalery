@@ -1,5 +1,4 @@
 import { cerrarSesion, obtenerUsuarioActual, obtenerToken, validarSesion } from "../utils/session.js";
-import { subirACloud } from "../services/cloudinary.js";
 import { traerUsuarioPorUserName, crearImagenBack, imagenPorId, eliminarImagenBack } from "../services/api.js";
 
 //----- Variables -----
